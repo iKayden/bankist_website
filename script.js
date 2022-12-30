@@ -10,6 +10,10 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const header = document.querySelector(".header");
 const btnScrollTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector('#section--1');
+// Tabbed Component Build
+const tabs = document.querySelectorAll(".operations__tab");
+const tabsContainer = document.querySelector(".operations__tab-container");
+const tabsContent = document.querySelectorAll(".operations__content");
 
 const openModal = function(e) {
   e.preventDefault();
@@ -45,9 +49,36 @@ btnScrollTo.addEventListener("click", (e) => {
 
   // Modern Way
   section1.scrollIntoView({ behavior: "smooth" });
+});
+
+// Page Navigation
+//////////////// Event Delegation (!Important)
+// 1. Add event listener to a common parent element
+// 2. Determine which element organized the event
+document.querySelector(".nav__links").addEventListener("click", function(e) {
+  e.preventDefault();
+  //Matching Strategy
+  if (e.target.classList.contains("nav__link")) {
+    const id = e.target.getAttribute("href");
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+  }
+});
+
+
+// using event delegation (attach event handler on parent)
+tabsContainer.addEventListener("click", function(e) {
+  const clicked = e.target.closest(".operations__tab");
+  if (!clicked) return; // Guard Clause
+
+  // Remove previously active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Activate current Tab
+  clicked.classList.add("operations__tab--active");
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add("operations__content--active");
 })
-
-
 
 
 
