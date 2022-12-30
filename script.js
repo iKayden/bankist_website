@@ -31,6 +31,8 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+
+/*
 // creating and inserting elements
 const message = document.createElement("div");
 message.classList.add("cookie-message");
@@ -40,3 +42,25 @@ header.append(message);
 // deleting elements
 document.querySelector(".btn--close-cookie")
   .addEventListener("click", () => message.remove());
+
+//inline styling elements
+message.style.backgroundColor = "#37383d";
+message.style.width = "120%";
+// to get CSS characteristics added by a browser/DOM => getComputedStyle(element).attribute
+console.log("Getting the height set by a browser", getComputedStyle(message).height);
+message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) + 30 + "px";
+
+document.documentElement.style.setProperty("--color-primary", "orangered");
+
+// Attributes (standard properties)
+const logo = document.querySelector(".nav__logo");
+console.log(logo.alt);
+logo.alt = "Changed Alt Text";
+console.log(logo.alt);
+
+console.log(logo.src); //absolute url
+console.log(logo.getAttribute("src")); //relative url
+
+// Data Attributes (if you need to store data in UI)
+console.log("data attribute from image: ", logo.dataset.versionNumber);
+*/
