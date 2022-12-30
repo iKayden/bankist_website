@@ -7,6 +7,7 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const header = document.querySelector(".header");
 
 const openModal = function(e) {
   e.preventDefault();
@@ -19,8 +20,7 @@ const closeModal = function() {
   overlay.classList.add('hidden');
 };
 
-for (let i = 0; i < btnsOpenModal.length; i++)
-  btnsOpenModal[i].addEventListener('click', openModal);
+btnsOpenModal.forEach((btn) => btn.addEventListener('click', openModal));
 
 btnCloseModal.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
@@ -30,3 +30,13 @@ document.addEventListener('keydown', function(e) {
     closeModal();
   }
 });
+
+// creating and inserting elements
+const message = document.createElement("div");
+message.classList.add("cookie-message");
+message.innerHTML = `We use cookies to improve functionality and analytics. <button class="btn btn--close-cookie">Got It!</button>`;
+
+header.append(message);
+// deleting elements
+document.querySelector(".btn--close-cookie")
+  .addEventListener("click", () => message.remove());
