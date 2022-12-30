@@ -7,6 +7,7 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const nav = document.querySelector(".nav");
 const header = document.querySelector(".header");
 const btnScrollTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector('#section--1');
@@ -78,9 +79,25 @@ tabsContainer.addEventListener("click", function(e) {
   // Activate current Tab
   clicked.classList.add("operations__tab--active");
   document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add("operations__content--active");
-})
+});
 
-
+// Menu fade animation function
+const hoverNavBar = function(e) {
+  if (e.target.classList.contains("nav__link")) {
+    // Select all elements needed
+    const activeLink = e.target;
+    const siblings = activeLink.closest(".nav").querySelectorAll(".nav__link");
+    const logo = activeLink.closest(".nav").querySelector("img");
+    siblings.forEach(el => {
+      if (el !== activeLink) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+// Fading out
+nav.addEventListener("mouseover", hoverNavBar.bind(0.5));
+// Fading In
+nav.addEventListener("mouseout", hoverNavBar.bind(1))
 
 /*
 // creating and inserting elements
