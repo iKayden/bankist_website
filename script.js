@@ -137,7 +137,30 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 allSections.forEach(section => {
   sectionObserver.observe(section);
   section.classList.add("section--hidden");
-})
+});
+
+// Lazy Loading Images
+const imgTargets = document.querySelectorAll("img[data-src]");
+
+const loadImg = function(entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  //replacing the img src with a data-src one
+  entry.target.src = entry.target.dataset.src;
+  // listen for load event to remove blur
+  entry.target.addEventListener("load", function() {
+    entry.target.classList.remove("lazy-img");
+  });
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '100px'
+});
+
+imgTargets.forEach(img => imgObserver.observe(img))
 
 /*
 // creating and inserting elements
