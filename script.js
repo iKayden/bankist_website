@@ -101,6 +101,8 @@ nav.addEventListener("mouseout", hoverNavBar.bind(1));
 
 // Sticky Navigation After Main Section Scroll
 // Using Intersection Observer API
+const navHeight = nav.getBoundingClientRect().height;
+
 const stickyNav = function(entries) {
   const [entry] = entries;
   // Applying sticky class add/remove logic according to scrolling
@@ -113,10 +115,29 @@ const stickyNav = function(entries) {
 const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
   threshold: 0,
-  rootMargin: "-90px"
+  rootMargin: `-${navHeight}px`
 });
-headerObserver.observe(header)
+headerObserver.observe(header);
 
+// Reveal each section with the scroll
+const allSections = document.querySelectorAll(".section");
+const revealSection = function(entries, observer) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove("section--hidden");
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
+})
 
 /*
 // creating and inserting elements
