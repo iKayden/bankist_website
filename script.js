@@ -11,6 +11,7 @@ const nav = document.querySelector(".nav");
 const header = document.querySelector(".header");
 const btnScrollTo = document.querySelector(".btn--scroll-to");
 const section1 = document.querySelector('#section--1');
+const imgTargets = document.querySelectorAll("img[data-src]");
 // Tabbed Component Build
 const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
@@ -136,12 +137,10 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(section => {
   sectionObserver.observe(section);
-  section.classList.add("section--hidden");
+  // section.classList.add("section--hidden");
 });
 
 // Lazy Loading Images
-const imgTargets = document.querySelectorAll("img[data-src]");
-
 const loadImg = function(entries, observer) {
   const [entry] = entries;
   if (!entry.isIntersecting) return;
@@ -160,7 +159,44 @@ const imgObserver = new IntersectionObserver(loadImg, {
   rootMargin: '100px'
 });
 
-imgTargets.forEach(img => imgObserver.observe(img))
+imgTargets.forEach(img => imgObserver.observe(img));
+
+// Slider
+const slides = document.querySelectorAll(".slide");
+const btnLeft = document.querySelectorAll(".slider__btn--left");
+const btnRight = document.querySelectorAll(".slider__btn--right");
+const goToSlide = function(slide) {
+  slides.forEach((s, i) => s.style.transform = `translateX(${(i - slide) * 100})`);
+};
+const nextSlide = function() {
+  if (currSlide === maxSlide - 1) {
+    currSlide = 0;
+  } else {
+    currSlide++;
+  }
+  goToSlide(currSlide);
+};
+const prevSlide = function() {
+  if (currSlide === 0) {
+    currSlide = maxSlide - 1;
+  } else {
+    currSlide--;
+  }
+  goToSlide(currSlide);
+};
+
+goToSlide(0);
+
+let currSlide = 0;
+const maxSlide = slides.length;
+// Next Slide (Move Transform: TranslateY)
+btnRight.addEventListener("click", nextSlide);
+btnLeft.addEventListener("click", prevSlide);
+
+
+const slider = document.querySelectorAll(".slider");
+slider.style.transform = "scale(0.5)";
+slider.style.overflow = "visible";
 
 /*
 // creating and inserting elements
