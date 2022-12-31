@@ -94,10 +94,29 @@ const hoverNavBar = function(e) {
     logo.style.opacity = this;
   }
 };
-// Fading out
+// Fading out (passing a "real" argument into the handler (this) )
 nav.addEventListener("mouseover", hoverNavBar.bind(0.5));
 // Fading In
-nav.addEventListener("mouseout", hoverNavBar.bind(1))
+nav.addEventListener("mouseout", hoverNavBar.bind(1));
+
+// Sticky Navigation After Main Section Scroll
+// Using Intersection Observer API
+const stickyNav = function(entries) {
+  const [entry] = entries;
+  // Applying sticky class add/remove logic according to scrolling
+  if (!entry.isIntersecting) {
+    nav.classList.add("sticky");
+  } else {
+    nav.classList.remove("sticky");
+  }
+};
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: "-90px"
+});
+headerObserver.observe(header)
+
 
 /*
 // creating and inserting elements
