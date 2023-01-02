@@ -237,7 +237,23 @@ const slider = function() {
     }
   });
 };
-slider()
+slider();
+
+// Lifecycle DOM helpful three events
+// document.addEventListener("DOMContentLoaded", function(e) {
+//   console.log("DOMContentLoaded", e);
+// });
+
+// window.addEventListener("load", function(e) {
+//   console.log("load info", e);
+// });
+
+// before leaving the page pop up
+// window.addEventListener("beforeunload", function(e) {
+//   e.preventDefault();
+//   console.log('before unload', e);
+//   e.returnValue = "";
+// })
 /*
 // creating and inserting elements
 const message = document.createElement("div");
